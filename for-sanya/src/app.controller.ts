@@ -15,4 +15,13 @@ export class AppController {
   ) {
     return this.appService.create(body)
   }
+
+  @Post('login')
+  login(
+    @Body() body
+  ) {
+    if (!body.email) return 'Email property unset'
+    if (!body.password) return 'Passord property unset'
+    return this.appService.login(body)
+  }
 }
