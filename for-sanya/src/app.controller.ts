@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -6,7 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  index() {
+  index(): any {
     return this.appService.index();
   }
   @Post()
@@ -16,12 +16,11 @@ export class AppController {
     return this.appService.create(body)
   }
 
-  @Post('login')
-  login(
-    @Body() body
-  ) {
-    if (!body.email) return 'Email property unset'
-    if (!body.password) return 'Passord property unset'
-    return this.appService.login(body)
+  @Post('/:id')
+  update(
+    @Body() body,
+    @Param() {id}
+  ): any {
+    return this.appService.update(id, body)
   }
 }

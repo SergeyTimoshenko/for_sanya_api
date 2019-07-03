@@ -1,27 +1,30 @@
 import { Injectable } from '@nestjs/common';
 
-interface User {
-  password: string;
-  email: string;
+interface Hero {
+  id?: number;
   name: string;
-  id: number;
+  description: string;
+  super_power: string;
+  age: number;
+  image: string;
 }
 
 @Injectable()
 export class AppService {
-  users: Array<User> = [];
+  heroes: Array<Hero> = [];
   index() {
-    return this.users;
+    return this.heroes;
   }
-  create(user) {
-    let newUser = {...user, id: new Date().valueOf()}
-    this.users.push(newUser)
-    return newUser
+  create(hero: Hero) {
+    let newHero = {...hero, id: new Date().valueOf()}
+    this.heroes.push(newHero)
+    return newHero
   }
-  login({email, password}) {
-    let user = this.users.filter(user => user.email === email)[0]
-    if (!user) return 'User not found'
-    if (user.password !== password) return 'Password invalid'
-    return user;
+  update(id: number, hero: Hero) {
+    let currentHero = this.heroes.filter(maphero => maphero.id === Number(id))[0]
+    if (!currentHero) return 'Hero not found'
+    let arrId = this.heroes.indexOf(currentHero)
+    this.heroes[arrId] = {...hero, id: Number(id)}
+    return this.heroes[arrId]
   }
 }
