@@ -27,4 +27,10 @@ export class AppService {
     this.heroes[arrId] = {...hero, id: Number(id)}
     return this.heroes[arrId]
   }
+  delete(id: number) {
+    let currentHero = this.heroes.filter(maphero => maphero.id === Number(id))[0]
+    if (!currentHero) return 'Hero not found'
+    this.heroes.splice(this.heroes.indexOf(currentHero), 1);
+    return 'Deleted successed'
+  }
 }

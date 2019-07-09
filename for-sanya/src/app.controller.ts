@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -22,5 +22,12 @@ export class AppController {
     @Param() {id}
   ): any {
     return this.appService.update(id, body)
+  }
+
+  @Delete('/:id')
+  del(
+    @Param() {id}
+  ) {
+    return this.appService.delete(id)
   }
 }
